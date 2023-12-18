@@ -7,14 +7,14 @@ const taskSlice=createSlice({
     },
     reducers:{
         createTask(state,action){
-          state.tasks.push(action.payload)
+          state.tasks.data.push(action.payload)
         },
         editTask(state,action){
-            console.log(state.tasks)
-           state?.tasks?.data.forEach(task=>{
-            if(task.id==action.payload.index){
-                task.task=action.payload.editValue
+          state.tasks.data=state?.tasks?.data.map(task=>{
+            if(task.id==action.payload.id){
+                task.task=action.payload.task
             }
+            return task
            })
         },
         getTask(state,action){

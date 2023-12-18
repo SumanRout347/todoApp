@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios"
 import {useSelector,useDispatch} from "react-redux"
-import { editTask, getTask } from "./redux/slices/taskSlice";
+import { createTask, editTask, getTask } from "./redux/slices/taskSlice";
 
 function App() {
   const API = "https://64e5d1f809e64530d17f15bc.mockapi.io/fakeData";
@@ -23,6 +23,7 @@ function App() {
    async function submit(e){
     e.preventDefault()
     await axios.post(`${API}`,{task})
+    dispatch(createTask({id:t?.data.length,task:task}))
   }
 
   const deleteTodo = async (index)=>{
@@ -31,7 +32,7 @@ function App() {
   const editTodo = async (index)=>{
     setTask(editValue)
     await axios.put(`${API}/${index}`,{task:editValue})
-    dispatch(editTask({id:index,val:editValue}))
+    dispatch(editTask({id:index,task:editValue}))
   }
   return (
     <div className="App">
